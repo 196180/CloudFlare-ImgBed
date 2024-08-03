@@ -43,11 +43,11 @@
 
 部署方式和环境变量和原仓库保持一致。
 
-#### 提前准备
+#### 3.1.1提前准备
 
 你唯一需要提前准备的就是一个 Cloudflare 账户 （如果需要在自己的服务器上部署，不依赖 Cloudflare，可参考[#46](https://github.com/cf-pages/Telegraph-Image/issues/46) ）
 
-#### 手把手教程
+#### 3.1.2手把手教程
 
 简单 3 步，即可部署本项目，拥有自己的图床
 
@@ -59,7 +59,7 @@
 
 3. 按照页面提示输入项目名称，选择需要连接的 git 仓库，点击`部署站点`即可完成部署
 
-#### 后台管理
+#### 3.1.3后台管理
 
 1. 默认关闭，开启方式如下：
    - 创建一个新的KV数据库
@@ -68,7 +68,7 @@
 2. 管理员认证，默认关闭，开启方式如下：
    - 项目对应`设置`->`环境变量`->`为生产环境定义变量`->`编辑变量` ，添加`BASIC_USER`作为管理员用户名，`BASIC_PASS`作为管理员登录密码
 
-#### 图片审查
+#### 3.1.4图片审查
 
 支持成人内容审查和自动屏蔽，开启步骤如下：
 
@@ -76,7 +76,7 @@
 - 打开 Cloudflare Pages 项目的管理页面，依次点击`设置`，`环境变量`，`添加环境变量`
 - 添加一个`变量名称`为`ModerateContentApiKey`，`值`为第一步获得的`API key`，点击`保存`即可
 
-#### Web和API上传认证
+#### 3.1.5Web和API上传认证
 
 环境变量增加认证码`AUTH_CODE`，值为你想要设置的认证码。
 
@@ -111,23 +111,23 @@ API格式：
 > ]
 > ```
 
-#### 访问域名限制
+#### 3.1.6访问域名限制
 
-环境变量增加`ALLOWED_DOMAINS`，多个允许的域名用英文`,`分割，如：域名.xyz,域名.cloudns.be,域名.pp.ua
+环境变量增加`ALLOWED_DOMAINS`，多个允许的域名用英文`,`分割，如：`域名.xyz,域名.cloudns.be,域名.pp.ua`
 
-#### 远端遥测
+#### 3.1.7远端遥测
 
 便于开发者进行bug的捕捉和定位，但是**过程中可能收集到访问链接、域名等信息**，如您不愿意泄露类似信息给项目开发者，可在环境变量中添加`disable_telemetry`为`true`来退出遥测。
 
-#### 随机图API
+#### 3.1.8随机图API
 
 | 接口名称     | /random                                                      |
 | ------------ | ------------------------------------------------------------ |
 | **接口功能** | 从图床中随机返回一张图片的链接（注意会消耗列出次数）         |
 | **前置条件** | 设置`AllowRandom`环境变量，值为`true`                        |
 | **请求方法** | GET                                                          |
-| **请求参数** | **Query参数**：<br />`type`：设为`url`时返回完整url链接，否则返回随机图的文件路径。 |
-| **响应格式** | data.url为返回的链接/文件路径。                              |
+| **请求参数** | **Query参数**：<br />`type`：设为`url`时返回完整url链接，否则返回随机图的文件路径。<br />`form`:设为`text`时直接返回文本，否则返回json格式内容。 |
+| **响应格式** | 当`form`不是`text`时，data.url为返回的链接/文件路径。<br />否则，直接返回链接/文件路径。 |
 
 > **请求示例**：
 >
@@ -144,7 +144,7 @@ API格式：
 > }
 > ```
 
-#### 注意
+#### 3.1.9注意
 
 **修改环境变量后需要重新部署才能生效！**
 
@@ -166,8 +166,19 @@ API格式：
 
 1. ~~修复API上传无法直接展示在后台的问题（2024.7.25已修复）~~
 
-## 5.Tips
+## 5.Q&A
+
+### 5.1未设置`ALLOWED_DOMAINS`，但无法跨域访问？
+
+- 请检查你的cloudflare防火墙设置（例如hotlink保护是否开启）
+- 参见[Issue #8](https://github.com/MarSeventh/CloudFlare-ImgBed/issues/8)
+
+## 6.Tips
 
 前端开源，参见[MarSeventh/Sanyue-ImgHub](https://github.com/MarSeventh/Sanyue-ImgHub?tab=readme-ov-file)项目。
 
 **如果觉得项目不错希望您能给个免费的star✨✨✨，非常感谢！**
+
+## 7.Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=MarSeventh/CloudFlare-ImgBed&type=Date)](https://star-history.com/#MarSeventh/CloudFlare-ImgBed&Date)
